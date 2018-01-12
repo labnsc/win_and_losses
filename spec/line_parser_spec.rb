@@ -1,6 +1,14 @@
 require_relative '../lib/line_parser'
 
 RSpec.describe LineParser do
+  it 'does not change if code is not a win/loss' do
+    line = "Mk142=Stimulus,S127,51542,1,0"
+
+    result = LineParser.call(line)
+
+    expect(result).to eq("Mk142=Stimulus,S127,51542,1,0")
+  end
+
   context "PRE loss" do
     it 'changes it for LOSS code' do
       line = "Mk142=Stimulus,S1002,51542,1,0"

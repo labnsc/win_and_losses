@@ -118,14 +118,18 @@ class LineParser
         return line.gsub(/S\s*\K(\d+)/, POST_LOSS_CODE)
       end
 
-      code_first_num = code.chars.first
-      if %w[1 3 5 7].include?(code_first_num)
-        return line.gsub(/S\s*\K(\d+)/, WIN_CODE)
+      if code.to_i >= 1000
+        code_first_num = code.chars.first
+        if %w[1 3 5 7].include?(code_first_num)
+          return line.gsub(/S\s*\K(\d+)/, WIN_CODE)
+        end
+
+        if %w[2 4 6 8].include?(code_first_num)
+          return line.gsub(/S\s*\K(\d+)/, POST_WIN_CODE)
+        end
       end
 
-      if %w[2 4 6 8].include?(code_first_num)
-        return line.gsub(/S\s*\K(\d+)/, POST_WIN_CODE)
-      end
+      line
     end
 
     def stimulus_code(line)
