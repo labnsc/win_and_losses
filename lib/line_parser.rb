@@ -1,9 +1,9 @@
 class LineParser
   class << self
-    WIN_CODE = "333"
-    POST_WIN_CODE = "444"
+    WIN_CODE = '333'.freeze
+    POST_WIN_CODE = '444'.freeze
 
-    LOSS_CODE = "111"
+    LOSS_CODE = '111'.freeze
     LOSSES = %w[
       1002
       1004
@@ -53,9 +53,9 @@ class LineParser
       7019
       7028
       7034
-    ]
+    ].freeze
 
-    POST_LOSS_CODE = "222"
+    POST_LOSS_CODE = '222'.freeze
     POST_LOSSES = %w[
       2002
       2004
@@ -105,14 +105,12 @@ class LineParser
       8019
       8028
       8034
-    ]
+    ].freeze
 
     def call(line)
       code = stimulus_code(line)
 
-      if LOSSES.include?(code)
-        return line.gsub(/S\s*\K(\d+)/, LOSS_CODE)
-      end
+      return line.gsub(/S\s*\K(\d+)/, LOSS_CODE) if LOSSES.include?(code)
 
       if POST_LOSSES.include?(code)
         return line.gsub(/S\s*\K(\d+)/, POST_LOSS_CODE)
@@ -136,5 +134,4 @@ class LineParser
       line.match(/S\s*\K(\d+)/)[0]
     end
   end
-
 end
