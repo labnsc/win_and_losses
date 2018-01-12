@@ -55,5 +55,13 @@ RSpec.describe LineParser do
 
       expect(result).to eq("Mk142=Stimulus,S444,51542,1,0")
     end
+
+    it 'B changes it for WIN post code' do
+      line = "Mk142=Stimulus,S4000,51542,1,0"
+
+      result = LineParser.call(line)
+
+      expect(result).to eq("Mk142=Stimulus,S444,51542,1,0")
+    end
   end
 end
